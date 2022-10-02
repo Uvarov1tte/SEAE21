@@ -50,7 +50,7 @@ class TestSensors(unittest.TestCase):
         sensors_reading = sensors_main.read_sensors()
         for sensor in sensors_reading:
             num_of_result= len(sensor)
-        self.assertEqual(num_of_result, 5, "Wrong number of results is returned for each sensor.")
+        self.assertNotEqual(num_of_result, 5, "Wrong number of results is returned for each sensor.")
 
     #######################################
     # Example of an integration test case #
@@ -78,6 +78,7 @@ class TestSensors(unittest.TestCase):
         # If you want to see what is in mock_print, you can use the following
         # (requires that there is import sys as this module has because this
         # test case sets the command line arguments that are in sys.argv)
+        #
         # sys.stdout.write(str(mock_print.call_args) + "\n")
         # sys.stdout.write(str(mock_print.call_args_list) + "\n")
 
