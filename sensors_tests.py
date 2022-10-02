@@ -42,7 +42,7 @@ class TestSensors(unittest.TestCase):
     # read_sensors return 4 sensor readings.
     def test_read_sensors(self):
         result = len(sensors_main.read_sensors())
-        self.assertEqual(result, 4, "Wrong number of sensors were read.")
+        self.assertEqual(result, 4)
 
     # The test case test_read_sensors2 that tests whether function
     # read_sensors return 5 result for each sensor reading.
@@ -50,7 +50,7 @@ class TestSensors(unittest.TestCase):
         sensors_reading = sensors_main.read_sensors()
         for sensor in sensors_reading:
             num_of_result= len(sensor)
-        self.assertNotEqual(num_of_result, 5, "Wrong number of results is returned for each sensor.")
+        self.assertNotEqual(num_of_result, 5)
 
     #######################################
     # Example of an integration test case #
