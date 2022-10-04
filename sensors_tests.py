@@ -38,6 +38,20 @@ class TestSensors(unittest.TestCase):
         result = sensors_main.check_limits(limits)
         self.assertFalse(result, False)
 
+    # The test case test_check_limits1 that tests the check_limits
+    # with correct inputs (lower limit 9 and higher limit 20) and
+    # expects the method to return True, since the limits are
+    # correct.
+    def test_check_limits4(self):
+        limits = [9, 20]
+        result = sensors_main.check_limits(limits)
+        self.assertTrue(result, True)
+
+    # The test case test_read_sensors0 that tests whether function
+    # read_sensors return any sensor readings.
+    ######
+    #To be implemented
+
     # The test case test_read_sensors that tests whether function
     # read_sensors return 4 sensor readings.
     def test_read_sensors(self):
@@ -51,6 +65,7 @@ class TestSensors(unittest.TestCase):
         for sensor in sensors_reading:
             num_of_result= len(sensor)
         self.assertNotEqual(num_of_result, 5)
+    # possible change if it is allowed to change the code in sensors_main.py
 
     #######################################
     # Example of an integration test case #
@@ -81,6 +96,10 @@ class TestSensors(unittest.TestCase):
         #
         # sys.stdout.write(str(mock_print.call_args) + "\n")
         # sys.stdout.write(str(mock_print.call_args_list) + "\n")
+
+    #######################
+    #To be replaced with another integration test case, in which there is correct command line arguments.
+    #######################
 
 if __name__ == '__main__':
     unittest.main()
