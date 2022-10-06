@@ -1,6 +1,6 @@
 import sensors_main
 import unittest
-from unittest.mock import patch # needed for the example integration test case
+from unittest.mock import Mock, call, patch # needed for the example integration test case
 import sys # needed for setting the command line parameters for test cases
 
 # Unit tests implemented with Python's built-in unittest
@@ -39,18 +39,19 @@ class TestSensors(unittest.TestCase):
         self.assertFalse(result, False)
 
     # The test case test_check_limits1 that tests the check_limits
-    # with correct inputs (lower limit 9 and higher limit 20) and
+    # with correct inputs (lower limit 8 and higher limit 16) and
     # expects the method to return True, since the limits are
     # correct.
     def test_check_limits4(self):
-        limits = [9, 20]
+        limits = [8, 16]
         result = sensors_main.check_limits(limits)
         self.assertTrue(result, True)
 
     # The test case test_read_sensors0 that tests whether function
     # read_sensors return any sensor readings.
-    ######
-    #To be implemented
+    def test_read_Sensors(self):
+        result=sensors_main.read_sensors()
+        self.assertNotEqual(result, "")
 
     # The test case test_read_sensors that tests whether function
     # read_sensors return 4 sensor readings.
@@ -96,10 +97,36 @@ class TestSensors(unittest.TestCase):
         #
         # sys.stdout.write(str(mock_print.call_args) + "\n")
         # sys.stdout.write(str(mock_print.call_args_list) + "\n")
+    
+    @patch('builtins.print')
+    def test_check_limits_integration2(self, mock_print):
+        # set command line parameters, since they are where main gets the
+        # min and max temperature settings (18 and 22), then call the function with the command line args
+        with patch.object(sys,'argv', ["sensors_main.py", 18, 22]):
+            sensors_main.main()
+        # sys.argv = ["sensors_main.py", 18, 22]
+        # sensors_main.main()
+        # set up for the test call below
+        mock = Mock(return_value=None)
+        # mock([21.2, 18.2, 18.2, 22.2])
+        # mock([-5.0, -4.2, -3.9, -4.5])
+        # mock([1.2, 0.0, 0.5, -0.8, -1.0])
+        # mock([25.0, -4.2, -13.9, 4.5])
+        sensors_readings = [[21.2, 18.2, 18.2, 22.2], [-5.0, -4.2, -3.9, -4.5], [1.2, 0.0, 0.5, -0.8, -1.0], [25.0, -4.2, -13.9, 4.5]]
+        i = 0
+        calls = []
+        while i<4:
+            for sensor in sensors_readings:
+                mock(sensor)
+                calls.append(call(sensor))
+                i+=1
+        # calls = [call([21.2, 18.2, 18.2, 22.2]), call([-5.0, -4.2, -3.9, -4.5]), call([1.2, 0.0, 0.5, -0.8, -1.0]), call([25.0, -4.2, -13.9, 4.5])]
 
-    #######################
-    #To be replaced with another integration test case, in which there is correct command line arguments.
-    #######################
+        # check that the console output is the expected calls (sensor readings lists)
+        mock_print.assert_has_calls(calls, any_order=False)
+
+        # see what is in mock_print
+        sys.stdout.write(str(mock_print.call_args_list) + "\n")
 
 if __name__ == '__main__':
     unittest.main()
