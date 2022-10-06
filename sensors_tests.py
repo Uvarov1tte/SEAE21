@@ -49,7 +49,7 @@ class TestSensors(unittest.TestCase):
 
     # The test case test_read_sensors0 that tests whether function
     # read_sensors return any sensor readings.
-    def test_read_Sensors(self):
+    def test_read_sensors(self):
         result=sensors_main.read_sensors()
         self.assertNotEqual(result, "")
 
@@ -101,8 +101,8 @@ class TestSensors(unittest.TestCase):
     @patch('builtins.print')
     def test_check_limits_integration2(self, mock_print):
         # set command line parameters, since they are where main gets the
-        # min and max temperature settings (18 and 22), then call the function with the command line args
-        with patch.object(sys,'argv', ["sensors_main.py", 18, 22]):
+        # min and max temperature settings (8 and 16), then call the function with the command line args
+        with patch.object(sys,'argv', ["sensors_main.py", 8, 16]):
             sensors_main.main()
         # sys.argv = ["sensors_main.py", 18, 22]
         # sensors_main.main()
