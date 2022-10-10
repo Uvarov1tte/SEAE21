@@ -126,7 +126,7 @@ class TestSensors(unittest.TestCase):
         mock_print.assert_has_calls(calls, any_order=False)
 
         # see what is in mock_print
-        sys.stdout.write(str(mock_print.call_args_list) + "\n")
+        # sys.stdout.write(str(mock_print.call_args_list) + "\n")
 
 if __name__ == '__main__':
     unittest.main()
